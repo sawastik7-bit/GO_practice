@@ -1,7 +1,7 @@
-package main  // all code is executed inside this package
+package main
 
-import "fmt"  // fmt is package to import methods  like Print, Println
+import "practice/hello"
 
-func main(){  // all things run inside this main function just like c++
-	fmt.Println("hello this is my first go program")    // this is the syntax to print something in side console
+func main() {
+	hello.Hello("raja");
 }
