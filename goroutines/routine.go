@@ -15,20 +15,41 @@
 
 // for i:=0;i<=10;i++{
 // 	go task(i);  // just write go in front of it , there are go routine lightweight threads , which will run concurrently , total 11 go routines parallely
-// 	    // this is a blocking function ,, first one is printin then second then third ,,but how to run it parallely 
+// 	    // this is a blocking function ,, first one is printin then second then third ,,but how to run it parallely
 // }
-//  // the main func should sleep 
+//  // the main func should sleep
 
-//  time.Sleep(time.Second*2);  // will make the main func sleep till the go routine completes concurrency processes 
+//  time.Sleep(time.Second*2);  // will make the main func sleep till the go routine completes concurrency processes
 // }
 
+// HERE WE WILL LEARN ABOUT waitgroups in go routine
 
-// HERE WE WILL LEARN ABOUT waitgroups in go routine 
+// waitgroups is done to synchronize go routines
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+func task(id int, w *sync.WaitGroup ){  // WAITGROUP SHOULD BE POINTER
+	
+	defer w.Done();
+	
+	fmt.Println("The task is running on id :", id);
+
+}
 
 func main(){
-fmt.Println();
+
+	// how to add waitgroups 
+	var wg sync.WaitGroup
+
+	for i:=0;i<10;i++{
+		wg.Add(1);
+go task(i,&wg);
+	}
+
+	wg.Wait();
 }
